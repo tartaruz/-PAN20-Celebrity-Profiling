@@ -3,6 +3,7 @@ config = {
     "training_path"    : "data/split_data/training/",
     "test_path"        : "data/split_data/test/",
     
+    "train_test_split" : 0.8,
     
     
 
@@ -27,5 +28,5 @@ config = {
 
 
     # Vectorizer/Embeding
-    "vocabulary_size": 4000000
+    "vocabulary_size": 2000000
 }

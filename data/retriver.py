@@ -14,12 +14,12 @@ class Retriver():
         self.is_training_set = training
         if training:
             print(">"+" Initialization Training Modus..")
+            self.size = 1920*(config["train_test_split"])
             self.training_mode()
-            self.size = len(self.current_labels.index)
         else:
             print(">"+" Initialization Testing Modus..")
+            self.size = 1920*(1 - config["train_test_split"])
             self.testing_mode()
-            self.size = len(self.current_labels.index)
 
     def training_mode(self):
         self.get_training_celebrity()

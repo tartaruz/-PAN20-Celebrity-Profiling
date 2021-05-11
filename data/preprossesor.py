@@ -71,8 +71,9 @@ class Preprossesor:
         # https://en.wikipedia.org/wiki/Unicode_block
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
+            # print(index_row,(self.retrival.size*self.percent), ((index_row) / (self.retrival.size*self.percent)))
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size))))
 
             for index_tweet, tweet in enumerate(row[1]):
                 text = tweet
@@ -119,8 +120,9 @@ class Preprossesor:
         pattern = r'(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))'
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size))))
+
             for index_tweet, tweet in enumerate(row[1]):
                 text = re.sub(pattern, "LINKURL", tweet)
                 feed.append(text)
@@ -132,8 +134,9 @@ class Preprossesor:
         punct = string.punctuation+"’" + '“' + '”' + "…"
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size))))
+
             for index_tweet, tweet in enumerate(row[1]):
                 text = tweet.translate(str.maketrans('', '', punct)).lower()
                 feed.append(text)
@@ -144,8 +147,8 @@ class Preprossesor:
     def remove_stopwords(self):
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size))))
 
             for index_tweet, tweet in enumerate(row[1]):
                 text = tweet.split(" ")
@@ -162,8 +165,8 @@ class Preprossesor:
 
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size))))
 
             for index_tweet, tweet in enumerate(row[1]):
                 text = [stemmer.stem(word) for word in tweet]
@@ -226,8 +229,8 @@ class Preprossesor:
         
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size))))
             for index_tweet, tweet in enumerate(row[1]):
                 if len(tweet)>0:
                     tweet = " ".join(tweet)

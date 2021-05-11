@@ -44,9 +44,8 @@ class Classifiers:
         self.terminal_info("Training All Classifiers")
 
         for index_row, row in self.retrival.current_celebrity.iterrows():
-            if (index_row) % (self.retrival.size*self.percent) == 0:
-                self.terminal_info("Status", percent=str(index_row*100/960))
-            
+            if (index_row) % int(int(self.retrival.size)*self.percent) == 0:
+                self.terminal_info("Status", percent=str(int(index_row*100/int(self.retrival.size*1.5))))
             feed = [element for element in row[1] if len(element)>0]
             flat_feed = [item for sublist in feed for item in sublist]
             
@@ -145,14 +144,3 @@ class Classifiers:
             print(f"     |--------> ¦{str(info)}¦\t{percent}%")
 
 
-if __name__ == "__main__":
-    c = Classifiers()
-    c.train_perceptron()
-    pre = c.predict_perceptron([[1,0]])
-    print("10",pre)
-    pre = c.predict_perceptron([[0,1]])
-    print("01",pre)
-    pre = c.predict_perceptron([[0,0]])
-    print("00",pre)
-    pre = c.predict_perceptron([[1,1]])
-    print("11",pre)
