@@ -32,4 +32,4 @@ test = Retriver(config, training=False)
 p_test = Preprossesor(test, config)
 test = p_test.retrival
 classifier.train()
-classifier.predict(test)
+classifier.evaluate_all(test)

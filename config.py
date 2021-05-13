@@ -3,7 +3,7 @@ config = {
     "training_path"    : "data/split_data/training/",
     "test_path"        : "data/split_data/test/",
     
-    "train_test_split" : 0.8,
+    "train_test_split" : 0.5,
     
     
 
