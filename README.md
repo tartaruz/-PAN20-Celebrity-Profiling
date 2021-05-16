@@ -10,7 +10,7 @@ PS: The code is written in Python 3.8.5 and will therefore need at least Python3
 ## Dataset
 
 The data usedfor the project is from [PAN20: Celebrity Profiling 2020](https://pan.webis.de/clef20/pan20-web/celebrity-profiling.html). 
-Access is requested and granted by [Zenodo](https://zenodo.org/record/4461887).
+Access is requested and granted by [Zenodo](https://zenodo.org/record/4461887). The data can also be retrived from the delivery at BlackBoard in a zip file.
 
 ## Prerequisites
 
