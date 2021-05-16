@@ -1,7 +1,8 @@
 # Celebrity Profiling
 
 >The project is from TDT4310 Intelligent Text Analytics and Language Understanding at NTNU. The system compares the results of Perceptron, Stocatich Desending Gradient, Passive Aggressive Classifier, Mutlinomial Naive Bayes and Bernoulli Naive Bayes with the data of multiple celebrity users' twitter feed
-.
+
+
 PS: The code is written in Python 3.8.5 and will therefore need at least Python3 and upward to function. Additionally, the codebase has a part where file manipulation is performed and could need some form of permissions to operate. The system was created in a Linux( Ubuntu 20.04.2 LTS) environment and has not been tested on Windows nor Mac systems.
 
 
