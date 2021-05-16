@@ -10,7 +10,7 @@ import pickle
 from nltk.stem import PorterStemmer
 import os
 
-
+# Handels the prporssesing of the Data. Need a Retrival object to handel to prevent copying the large amount of data
 class Preprossesor:
     def __init__(self, retrival, config):
         self.retrival = retrival
@@ -31,7 +31,7 @@ class Preprossesor:
                 print(f"[\t\tNo 🥒 File\t\t]\t - Starts pipeline for preprossesing")
                 self.pipeline(config, save_file_name)
 
-
+    #The prosseses the tweets go though
     def pipeline(self, config, save_file_name):
 
         if config["replacement_of_emoji"]:
@@ -53,6 +53,7 @@ class Preprossesor:
             self.terminal_info(" SAVING ")
             self.save_retrival(config, save_file_name)
 
+    #The filename of the  pickle file is created. It is a binary system that gives a 1 if the prosses was used or not.
     def filename_from_config(self, config):
         save_file_name = [0, 0, 0, 0, 0]
         if config["replacement_of_emoji"]:
@@ -67,7 +68,9 @@ class Preprossesor:
             save_file_name[4] = 1
         return ''.join(str(nr) for nr in save_file_name)
 
+    # THe prosses of removing emojies. It uses regex 
     def replace_emoji(self):
+        # Based on the wikipedia page  and the GITHUB POST https://gist.github.com/Alex-Just/e86110836f3f93fe7932290526529cd1
         # https://en.wikipedia.org/wiki/Unicode_block
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
@@ -115,6 +118,7 @@ class Preprossesor:
             self.retrival.current_celebrity.at[index_row, "text"] = feed
             del feed
 
+    # Replacement of URL link with a ned token
     def replace_link(self):
         # https://www.tutorialexample.com/best-practice-to-extract-and-remove-urls-from-python-string-python-tutorial/
         pattern = r'(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))'
@@ -130,6 +134,7 @@ class Preprossesor:
             self.retrival.current_celebrity.at[index_row, "text"] = feed
             del feed
 
+    #Removial of puctation
     def remove_puntation(self):
         punct = string.punctuation+"’" + '“' + '”' + "…"
         for index_row, row in self.retrival.current_celebrity.iterrows():
@@ -144,6 +149,7 @@ class Preprossesor:
             self.retrival.current_celebrity.at[index_row, "text"] = feed
             del feed
 
+    # Stopword Remvoal
     def remove_stopwords(self):
         for index_row, row in self.retrival.current_celebrity.iterrows():
             feed = []
@@ -160,6 +166,7 @@ class Preprossesor:
             self.retrival.current_celebrity.at[index_row, "text"] = feed
             del feed
 
+    #Stemming
     def normalization(self):
         stemmer = PorterStemmer()
 
@@ -175,6 +182,7 @@ class Preprossesor:
             self.retrival.current_celebrity.at[index_row, "text"] = feed
             del feed
 
+    #Stores the instance of the retrival object after prerprossesing
     def save_retrival(self, config, save_file_name):
         fileName = config["save_path"]
         if self.retrival.is_training_set:
@@ -186,6 +194,7 @@ class Preprossesor:
         fileName += config["pickle_suffix"]
         pickle.dump(self.retrival, open((fileName), "wb"))
 
+    # Get the pickled data to skip preprssesing
     def load_retrival(self, config, save_file_name):
         fileName = config["save_path"]
         if self.retrival.is_training_set:
@@ -211,6 +220,7 @@ class Preprossesor:
         else:
             return False
 
+    # Used to print nicly on the terminal to look like a hacker
     def terminal_info(self, info, percent=None):
         if not percent:
             print(f"\n[ Step: {self.steps} ]\tInitialization [{str(info)}]")
@@ -220,6 +230,7 @@ class Preprossesor:
 
         # print(self.retrival.current_celebrity)
 
+    # Created the vecotizer for later usage
     def create_TFIDF_vectorizer(self, config):
         self.terminal_info("Create TF_IDF vector")
         vectorizer = TfidfVectorizer(max_features=config["vocabulary_size"], sublinear_tf = True)

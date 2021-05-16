@@ -67,10 +67,11 @@ class Classifiers:
                 y_year = self.dicrete_year(y_year)
                 classifier.partial_fit(x, y_year, classes=[
                                        "4", "5", "6", "7", "8", "9"])
-
+    #Convert the year to their corresponding decade
     def dicrete_year(self, year):
         return [year[0][2]]
 
+    #Gives a prediciton by every classifier
     def predict(self, test_df):
         self.terminal_info("Predict With all classifiers")
 
@@ -105,6 +106,7 @@ class Classifiers:
 
         return results_occupation, results_gender, results_year
 
+    # GEt the labels of data in the prefered format
     def get_labels(self,test_df):
         self.terminal_info("Retriving ")
         labels_gender = [[] for _ in range(len(self.GENDER_classifiers))]
@@ -131,6 +133,7 @@ class Classifiers:
 
         return labels_occupation, labels_gender, labels_year
 
+    # Compares the prediciton of the systems with the correct labels
     def evaluate_all(self, test_df):
         y_occupation, y_gender, y_year = self.get_labels(test_df)
         results_occupation, results_gender, results_year = self.predict(test_df)
@@ -160,7 +163,7 @@ class Classifiers:
             res_recall = recall_score(predicitons, y_year[index], average=avr)
             print(f"F1:\t\t{res}\nPrecision:\t{res_precition}\nRecall:\t\t{res_recall}\n")
 
-
+    # Used to print nicly on the terminal to look like a hacker
     def terminal_info(self, info, percent=None):
         if not percent:
             print(f"\n[ Step: {self.steps} ]\tInitialization [{str(info)}]")

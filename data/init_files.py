@@ -1,14 +1,12 @@
-
-
-
-
-
+# The "Divider" class that has the task of divideng the data into the training and testing set
 class Divider:
 	def __init__(self, percent):
 		self.labels    = open("data/original_data/labels.ndjson", "r")
 		self.celebrity = open("data/original_data/celebrity-feeds.ndjson", "r")
 		self.percent = percent
 
+	
+	# Iterate until a N number of line is given to one. Creates the test and traing data set.
 	def create_split(self):		
 		try:
 			train_labels    = open("./data/split_data/training/labels_train.ndjson", "w")
